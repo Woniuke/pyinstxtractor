@@ -1,52 +1,24 @@
 # PyInstaller Extractor
 
-PyInstaller Extractor is a Python script to extract the contents of a PyInstaller generated Windows executable file. The contents of the pyz file (usually pyc files) present inside the executable are also extracted.
+Fork from https://github.com/extremecoders-re/pyinstxtractor  
+Fix some bug, code rebuild.  
+Bugs: 
+* fix pyc file magic header by the right python version, seen in [this](https://raw.githubusercontent.com/google/pytype/master/pytype/pyc/magic.py).
 
-The header of the pyc files are automatically fixed so that a Python bytecode decompiler will recognize it. The script can run on both Python 2.x and 3.x. Pyinstaller versions 2.0, 2.1, 3.0, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 4.0, 4.1, 4.2, 4.3, 4.4, 4.5, 4.5.1 are [tested](https://github.com/extremecoders-re/pyinstxtractor-test-binaries) & supported. Probably will work with other versions too.
 
-This project was originally hosted on [SourceForge](https://sourceforge.net/projects/pyinstallerextractor/).
-
-## How to use 
-
-The script can be run by passing the name of the exe as an argument.
-
+## How to use
 ```
-$ python pyinstxtractor.py <filename>
-X:\>python pyinstxtractor.py <filename>
+$ python pyinstxtractor.py -h
+usage: PyInstaller Extractor [-h] [-o OUTPUT] [--extract_pyz] file_path
+
+positional arguments:
+  file_path             target file target_path
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -o OUTPUT, --output OUTPUT
+                        output target_path, default module location.
+  --extract_pyz         try decompress pyz.
 ```
-
-It is recommended to run the script in the same version of Python which was used to generate the executable. This is to prevent unmarshalling errors(if any) while extracting the PYZ archive.
-
-## Example
-
-```
-X:\> python pyinstxtractor.py test.exe
-[+] Processing dist\test.exe
-[+] Pyinstaller version: 2.1+
-[+] Python version: 36
-[+] Length of package: 5612452 bytes
-[+] Found 59 files in CArchive
-[+] Beginning extraction...please standby
-[+] Possible entry point: pyiboot01_bootstrap.pyc
-[+] Possible entry point: test.pyc
-[+] Found 133 files in PYZ archive
-[+] Successfully extracted pyinstaller archive: dist\test.exe
-
-You can now use a python decompiler on the pyc files within the extracted directory
-```
-
-After extracting the pyc's you can use a Python decompiler like [Uncompyle6](https://github.com/rocky/python-uncompyle6/).
-
-```
-X:\> uncompyle6.exe test.exe_extracted\test.pyc
-X:\> uncompyle6.exe test.exe_extracted\PYZ-00.pyz_extracted\__future__.pyc
-```
-## Extracting Linux ELF binaries
-
-Pyinstxtractor can now natively extract Linux ELF binaries without other additional tools.
-
-For other questions and information, please see the [Wiki](https://github.com/extremecoders-re/pyinstxtractor/wiki/Extracting-Linux-ELF-binaries) and the [FAQ](https://github.com/extremecoders-re/pyinstxtractor/wiki/Frequently-Asked-Questions)
-
-## License
-
-GNU General Public License v3.0
+If use --extract_pyz, script will try to decompress pyz file, but must ues same version of Python.  
+You can now use a python decompiler on the pyc files within the extracted directory such like [Uncompyle6](https://github.com/rocky/python-uncompyle6/).
