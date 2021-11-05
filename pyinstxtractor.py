@@ -278,7 +278,7 @@ class PyInstArchive:
 
 
 def main():
-    parser = argparse.ArgumentParser('PyInstaller Extractor')
+    parser = argparse.ArgumentParser('pyinstxtractor.py')
     parser.add_argument('file_path', type=str, help='target file target_path')
     parser.add_argument('-o', '--output', type=str, help='output target_path, default module location.')
     parser.add_argument('--extract_pyz', action='store_true', help='try decompress pyz.')
