@@ -216,7 +216,7 @@ class PyInstArchive:
     def _write_pyc(self, filename, data):
         with open(filename, 'wb') as pyc_file:
             pyc_magic = PYC_MAGIC[(int(str(self.py_ver)[0]), int(str(self.py_ver)[1:]))]
-            pyc_file.write(struct.pack("<H", pyc_magic))  # pyc magic
+            pyc_file.write(struct.pack("<H", pyc_magic) + b'\x0d\x0a')  # pyc magic
             if self.py_ver >= 37:  # PEP 552 -- Deterministic pycs
                 pyc_file.write(b'\0' * 4)  # Bitfield
                 pyc_file.write(b'\0' * 8)  # (Timestamp + size) || hash
